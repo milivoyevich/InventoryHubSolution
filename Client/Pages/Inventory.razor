@@ -1,0 +1,39 @@
+@page "/inventory"
+
+@using InventoryHub.Shared
+@using InventoryHub.Client.Services
+@inject InventoryService InventoryService
+
+<h3>Inventory</h3>
+
+@if (items == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr><th>Name</th><th>Qty</th><th>Price</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var item in items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<InventoryItemDto>? items;
+
+    protected override async Task OnInitializedAsync()
+    {
+        items = await InventoryService.GetItemsAsync();
+    }
+}
