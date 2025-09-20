@@ -1,7 +1,7 @@
+using InventoryHub.API.Data;
 using Microsoft.EntityFrameworkCore;
-using InventoryHub.API.Data;    
 using Microsoft.OpenApi.Models; // Add this for Swagger
-using Swashbuckle.AspNetCore;   // Optional, but helps with extension methods
+using Swashbuckle.AspNetCore; // Optional, but helps with extension methods
 
 namespace InventoryHub.API;
 
@@ -19,14 +19,19 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
-        app.UseSwagger();
-        app.UseSwaggerUI();
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "InventoryHub API V1");
+                c.RoutePrefix = string.Empty; // Swagger at root
+            });
+        }
         app.MapControllers();
         app.UseCors(policy =>
         {
-            policy.AllowAnyOrigin()
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
+            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
         });
         app.Run();
     }
