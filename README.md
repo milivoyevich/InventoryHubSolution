@@ -1,2 +1,4 @@
 # InventoryHubSolution
 Inventory Hub
+
+During the development process, I used GitHub Copilot to assist with code generation, debugging, and integration of new features. Copilot provided suggestions for setting up Swagger in the ASP.NET Core API, guided me through the necessary NuGet package installation, and offered step-by-step instructions for debugging projects in Visual Studio Code. Additionally, Copilot helped review and explain the structure of Blazor components, such as the NavMenu.razor file, ensuring best practices and efficient navigation implementation. This collaborative approach streamlined development, reduced errors, and improved productivity by leveraging AI-powered recommendations and code snippets.
