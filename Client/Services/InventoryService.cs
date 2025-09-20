@@ -14,12 +14,12 @@ public class InventoryService
 
     public async Task<List<InventoryItemDto>> GetItemsAsync()
     {
-        var items = await _http.GetFromJsonAsync<List<InventoryItemDto>>("api/inventory");
+        var items = await _http.GetFromJsonAsync<List<InventoryItemDto>>("http://localhost:5260/api/inventory");
         return items ?? new List<InventoryItemDto>();
     }
 
     public async Task AddItemAsync(InventoryItemDto item)
     {
-        await _http.PostAsJsonAsync("api/inventory", item);
+        await _http.PostAsJsonAsync("http://localhost:5260/api/inventory", item);
     }
 }

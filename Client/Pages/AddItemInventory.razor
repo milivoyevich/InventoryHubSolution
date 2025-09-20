@@ -1,0 +1,43 @@
+@page "/add-item"
+
+@using InventoryHub.Shared
+@using InventoryHub.Client.Services 
+@inject InventoryService InventoryService
+
+<h3>Add Inventory Item</h3>
+
+<EditForm class="col-lg-6" Model="@newItem" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label class="form-label">Name:</label>
+        <InputText class="form-control" @bind-Value="newItem.Name" />
+    </div>
+    <div>
+        <label class="form-label">Quantity:</label>
+        <InputNumber class="form-control" @bind-Value="newItem.Quantity" />
+    </div>
+    <div>
+        <label class="form-label">Price:</label>
+        <InputNumber class="form-control" @bind-Value="newItem.Price" />
+    </div>
+    <button type="submit" class="btn btn-primary my-5">Add</button>
+</EditForm>
+
+@if (successMessage != null)
+{
+    <p style="color:green">@successMessage</p>
+}
+
+@code {
+    private InventoryItemDto newItem = new();
+    private string? successMessage;
+
+    private async Task HandleSubmit()
+    {
+        await InventoryService.AddItemAsync(newItem);
+        successMessage = "Item added successfully!";
+        newItem = new(); // Reset form
+    }
+}
